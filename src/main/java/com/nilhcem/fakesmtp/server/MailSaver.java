@@ -16,6 +16,8 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +40,9 @@ public final class MailSaver extends Observable {
 	private static final Pattern SUBJECT_PATTERN = Pattern.compile("^Subject: (.*)$");
 
 	private final SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyhhmmssSSS");
-
+	private static final String BATCH_SIZE=Configuration.INSTANCE.get("emails.batchsize");
+	private static int iFileCount=0;
+	private static String subfolderSuffix="";
 	/**
 	 * Saves incoming email in file system and notifies observers.
 	 *
@@ -158,8 +162,26 @@ public final class MailSaver extends Observable {
 		if (ArgsHandler.INSTANCE.memoryModeEnabled()) {
 			return null;
 		}
-		String filePath = String.format("%s%s%s", UIModel.INSTANCE.getSavePath(), File.separator,
-				dateFormat.format(new Date()));
+		String subFolder="";
+		if ( ! BATCH_SIZE.isEmpty() ) {
+			try {
+				if ( iFileCount == 0 ) {
+					subfolderSuffix = dateFormat.format(new Date());
+				}
+				subFolder = Integer.toString(iFileCount / Integer.parseInt(BATCH_SIZE))  + subfolderSuffix +
+						File.separator;
+
+				if ( ! Files.isDirectory(Paths.get(String.format("%s%s%s", UIModel.INSTANCE.getSavePath(),
+						File.separator, subFolder)) ) )
+				{
+					Files.createDirectory(Paths.get(String.format("%s%s%s", UIModel.INSTANCE.getSavePath(),
+							File.separator, subFolder)));
+				}
+			}
+			catch (NumberFormatException | IOException e ) { }
+		}
+		String filePath = String.format("%s%s%s%s", UIModel.INSTANCE.getSavePath(), File.separator,
+				subFolder + dateFormat.format(new Date()));
 
 		// Create file
 		int i = 0;
@@ -177,6 +199,7 @@ public final class MailSaver extends Observable {
 		// Copy String to file
 		try {
 			FileUtils.writeStringToFile(file, mailContent);
+			++iFileCount;
 		} catch (IOException e) {
 			// If we can't save file, we display the error in the SMTP logs
 			Logger smtpLogger = LoggerFactory.getLogger(org.subethamail.smtp.server.Session.class);
