@@ -1,10 +1,11 @@
+
 FakeSMTP
 ========
 
 FakeSMTP is a Free Fake SMTP Server with GUI for testing emails in applications easily.
 It is written in Java.
-
-<img src="http://nilhcem.github.com/FakeSMTP/images/screenshot_mac.png" width="664" height="463" />
+This code is forked from http://github.com/nilhcem/FakeSMTP. All credits to nilhcem.
+<img src="http://nilhcem.com/FakeSMTP/images/screenshot_mac.png" width="664" height="463" />
 
 Configure your application to use `localhost` as your SMTP server, and all
 emails will be intercepted and displayed in this software.
@@ -20,7 +21,7 @@ It is licensed under the very free BSD or GPL license, whichever you prefer.
 Requirements
 ------------
 
-You need Java JVM 1.6 or newer installed on your machine.
+You need Java JVM 1.8 or newer installed on your machine.
 
 If you are on a "Unix-like" machine (Mac, GNU/Linux, BSD...), you may have
 to be "root" to start the port `25`, otherwise, try another port >= `1024`.
@@ -131,9 +132,9 @@ Usage on Docker
 
 * Build from source
 
-Get sources from GitHub: [Dockerfile](https://github.com/Nilhcem/FakeSMTP/blob/master/src/main/docker/Dockerfile)
+Get sources from GitHub: [Dockerfile](https://github.com/hardeepparmar/FakeSMTP/blob/master/src/main/docker/Dockerfile)
 
-    git clone https://github.com/Nilhcem/FakeSMTP
+    git clone https://github.com/hardeepparmar/FakeSMTP
     cd FakeSMTP
 
 Build the docker image
@@ -165,4 +166,4 @@ Full command
 Contact me
 ----------
 
-Use my github's nickname (at) gmail (dot) com
+Use my github's hardeep(dot)parmar (at) gmail (dot) com
