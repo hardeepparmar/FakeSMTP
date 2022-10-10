@@ -9,7 +9,9 @@ This code is forked from http://github.com/nilhcem/FakeSMTP. All credits to nilh
 
 Configure your application to use `localhost` as your SMTP server, and all
 emails will be intercepted and displayed in this software.
-
+For application specific configuations you need to create file
+~/.fakeSMTP.properties and the properties which you want to override.
+On windows ~ is WIndows user home folder(even if you are using cygwin, since most likely you are using windows java.)
 FakeSMTP uses SubEthaSMTP: an easy-to-use server-side SMTP library for Java.
 
 FakeSMTP is free to use for commercial and non-commercial projects and the
