@@ -1,6 +1,7 @@
 package com.nilhcem.fakesmtp.gui;
 
 import com.nilhcem.fakesmtp.core.ArgsHandler;
+import com.nilhcem.fakesmtp.core.Configuration;
 import com.nilhcem.fakesmtp.core.I18n;
 import com.nilhcem.fakesmtp.gui.info.ClearAllButton;
 import com.nilhcem.fakesmtp.gui.info.NbReceivedLabel;
@@ -49,7 +50,7 @@ public final class MainPanel {
 	private final NbReceivedLabel nbReceivedLabel = new NbReceivedLabel();
 
 	// Save incoming messages to
-	private final JLabel saveMessages = new JLabel(i18n.get("mainpanel.save.messages"));
+	private final JLabel saveMessages = new JLabel(i18n.get("mainpanel.save.messages") + Configuration.INSTANCE.get("emails.batchsize"));
 	private final SaveMsgField saveMsgTextField = new SaveMsgField();
 
 	// Tab pane
