@@ -181,7 +181,7 @@ public final class MailSaver extends Observable {
 			catch (NumberFormatException | IOException e ) { }
 		}
 		String filePath = String.format("%s%s%s%s", UIModel.INSTANCE.getSavePath(), File.separator,
-				subFolder + dateFormat.format(new Date()));
+				subFolder , dateFormat.format(new Date()));
 
 		// Create file
 		int i = 0;
